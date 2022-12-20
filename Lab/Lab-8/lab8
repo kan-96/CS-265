@@ -1,0 +1,80 @@
+Khoa Nguyen - kn574
+Q1.1:
+//we convert seconds to hours, minutes and seconds
+struct time sec2hms( int secs)	{
+	struct time day;
+	day.hr = secs /3600;
+	secs = secs %3600;
+	day.min = secs/60;
+	day.sec = secs %60;
+	return day;
+}
+
+Q1.2:
+void readPeople(person* a[], FILE* f)
+{
+	char *buff = NULL ;
+	size_t len ;
+	size_t cnt = 0 ;
+
+	while( getline( &buff, &len, f ) > 1 ) 
+	{
+		// We read a last name (with the newline)
+		// - get memory for person
+		a[cnt] = (person*)malloc(sizeof(person));
+		// - append to array
+		sscanf(buff,"%s", a[cnt]->last);
+		// - read next 2 lines, fill it in 
+		// read first name
+		getline(&buff,&len,f);
+		sscanf(buff,"%s", a[cnt]->first);
+		// read age
+		getline(&buff,&len,f);
+		sscanf(buff,"%d", &a[cnt]->age);
+		fprintf (stdout, "Last name: %s ; First name: %s ; Age %d", a[cnt]->last, a[cnt]->first, a[cnt]->age);
+		free (a[cnt]);
+		++cnt ;
+	}
+
+	free( buff ) ;
+}
+Q1.3:
+void freePeople(person* a[], size_t n)	
+{
+	// Do NOT assume array is dense.  Check every element
+	size_t i =0 ;
+	while (a[i] != NULL && i < n)	{
+		free(a[i]);
+		i++;
+	}
+}
+
+Q2.1:
+size_t listLength( const sNode *L)	{
+//count number of non-NUll linklist in L
+	size_t cnt =0;
+	while (L != NULL)	{
+		cnt++;
+		L = L->next;
+	}
+	return cnt;
+}
+Q2.2:
+//Funtrion to reverse a linklist
+sNode* listRev(sNode *L)	{
+	sNode* prev = NULL;
+	sNode* current = L;
+	sNode* next = NULL;
+	while (current != NULL)	{
+		//store next value in link list
+		next = current->next;
+		//reverse a current node
+		current->next = prev;
+		//link pointer to head
+		prev = current;
+		current = next;
+	}
+	L = prev;
+	return L;
+}
+
