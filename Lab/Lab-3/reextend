@@ -1,0 +1,18 @@
+#!/bin/bash
+# reextend - fuction to rename file with *A become *B, or *.ext1 become *.ext2
+# Khoa Nguyen
+#10/08
+
+if [ $# != 2 ] ; then
+	echo "Please enter ./reextend -ext1 -ext2"
+	exit 1
+fi
+# $1: first extension
+# $2: second extension
+one=$1
+two=$2
+
+for arg in *${one}; do
+	base=`basename $arg ${one}`
+	mv $arg ${base}${two}
+done

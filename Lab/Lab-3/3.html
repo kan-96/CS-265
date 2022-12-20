@@ -1,0 +1,225 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Expires" content="no-expire">
+	<meta name="Author" content="Vera Zaychik & Kurt Schmidt">
+	<meta name="Publisher" content="Drexel University">
+	<meta name="Copyright" content="">
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description"
+		content="Lab for CS265 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Lab">
+	<meta name="Audience" content="All">
+	<link rel='shortcut icon' type='image/gif'
+		href='../../images/drexel.gif'></link>
+	<script language="JavaScript" src="../courseInfo.js"></script>
+	<script language="JavaScript" src="../../Scripts/courseFormat.js"></script>
+	<title> Shell Scripting (Bash) </title>
+	<link href="labs.css" rel="stylesheet" type="text/css">
+</head>
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#ff0000"
+	background="../../images/blueTexture.jpeg">
+
+<h1> Lab 3 &mdash; Bash Scripts </h1>
+
+<p> Okay, just follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>lab3</span>. </p>
+
+<p> Files for this lab can be found in <span class='fn'>~kschmidt/public_html/CS265/Labs/Bash</span> . </p>
+
+<ul>
+	<li> Look at the examples in the lab directory.  Run them.  Get an understanding. </li>
+	<li> Look at (and run) <span class='fn'>eg.bash</span> .  Many examples in there, of simple utilities. </li>
+	<li> Also look at <span class='fn'>args.bash</span> and <span class='fn'>rv.bash</span>
+		<ul>
+			<li> Bring good questions to class </li>
+		</ul>
+	</li>
+</ul>
+
+<h2> Scripting </h2>
+
+<ul>
+	<li> 
+		<script><!--
+			question( "What is the output of the following?  Explain." )
+			//--></script>
+<div class='cli'>
+<pre> [[ 13 &lt; 2 ]] &amp;&amp; echo true </pre>
+</div>
+	</li>
+
+	<li> 
+		<script><!--
+			question( "What is the output of the following?  Explain." )
+			//--></script>
+<div class='cli'>
+<pre>if grep chocolate mySettings &amp;&gt;/dev/null ; then
+   echo "All we have to decide is what to do with the chocolate that is given us..."
+fi</pre>
+</div>
+	</li>
+
+	<li> 
+		<script><!--
+			question( "What is the output of the following?  Explain." )
+			//--></script>
+<div class='cli'>
+<pre>x=13
+echo $(( x / 5 ))
+</pre>
+</div>
+	</li>
+
+	<li> 
+		<script><!--
+			question( "What is the output of the following?  Explain." )
+			//--></script>
+<div class='cli'>
+<pre>(( 27 % 2 == 1 ))
+echo $?</pre>
+</div>
+	</li>
+
+	<li> 
+		<script><!--
+			question( "What is the output of the following?  Why were the outputs different?" )
+			//--></script>
+<div class='cli'>
+<pre>unset x
+( x=12 ; echo "5 $x 13" )
+echo "5 $x 13"</pre>
+</div>
+	</li>
+
+	<li>
+		<p> Consider the following file, <span class='fn'>blah</span>: </p>
+<div class='file'>
+<pre>Item
+Another item</pre>
+</div>
+
+		<script><!--
+			question( "What is the output of the following?" )
+			//--></script>
+<div class='cli'>
+<pre>for item in $(cat blah) ; do
+   echo $item
+done</pre>
+</div>
+
+		<script><!--
+			question( "What is the output of the following?" )
+			//--></script>
+<div class='cli'>
+<pre>cat blah | while read item ; do
+   echo $item
+done</pre>
+</div>
+
+		<script><!--
+			question( "What is the output of the following?" )
+			//--></script>
+<div class='cli'>
+<pre>while read item ; do
+   echo $item
+done &lt; blah</pre>
+</div>
+
+	<li> Write a script called <span class='fn'>count.bash</span> that, for each <b>regular</b> file in the working
+		directory, prints the filename, the # of lines, and the # of words to stdout, like this:
+
+<div class='cli'>
+<pre>breadIsDangerous.txt 73 431
+spellExample 5 21</pre>
+</div>
+
+		<p> Do <b>not</b> use <span class='cmd'>find</span> </p>
+
+		<p> You might read up on Parameter expansion in <span class='cmd'>bash</span>, or look at the <span
+			class='cmd'>cut</span> utility. </p>
+
+		<p> Test your script with filenames that have spaces in them.  Get it right. </p>
+
+		<script><!--
+			question( "Upload <span class='fn'>count.bash</span>" )
+			//--></script>
+	</li>
+
+	<li> Write a shell script that accepts two file extensions as command line arguments and renames all files with the
+	first extension within the current working directory to have the second extension instead. 
+
+		<p> For example: </p>
+
+<div class='cli'>
+<pre>$ reextend .log .txt</pre>
+</div>
+
+		<p> Would cause <span class='fn'>install.log</span> to be renamed to <span class='fn'>install.txt</span>, and </p>
+
+<div class='cli'>
+<pre>$ reextend A B</pre>
+</div>
+
+		<p> Would cause <span class='fn'>TADAA</span> to be renamed to <span class='fn'>TADAB</span> .  It would also cause
+			<span class='fn'>file.A</span> to be renamed <span class='fn'>file.B</span> . </p>
+		
+		<p> The script should print out error messages as is appropriate if there is any problem with the command line
+		arguments. Test the script with a range of different parameters, including incorrect parameters or missing
+		parameters. </p>
+		
+		<p><b>hint:</b>  See <b>Parameter Expansion</b> in the bash man or info page. </p>
+
+		<p><b>hint:</b>  See what <span class='cmd'>ls -1</span> does. </p>
+
+		<script><!--
+			question( "Call this script <span class='fn'>reextend</span> , and upload it w/your lab." )
+			//--></script>
+	</li>
+
+	<li>
+		<p> You just used your favorite ripper to get some songs off a bunch of CDs that you legally purchased.  You set the
+		output format, got the bit-rate you wanted, but forgot to set the format for the filenames.  You ended up w/listings
+		like this: </p>
+
+		<div><span class='fn'>Led Zeppelin - Over the Hills and Far Away.mp3</span></div>
+
+		<p>, all in the same directory.  What you really wanted was to have the songs in directories by artist, and just the
+		song name for the filename: </p>
+
+		<div><span class='fn'>Led Zeppelin/Over the Hills and Far Away.mp3</span></div>
+	
+		<p> So, write a script that looks in the current directory only for mp3 files, breaks the filename out into artist
+		and song title, creates the appropriate directory (if it doesn't already exist), removes the artist and the first '
+		- ' from the filename, and moves it into the directory.  </p>
+
+		<script><!--
+			question( "Call this script <span class='fn'>organiseMusic</span> , and upload it w/your lab." )
+			//--></script>
+	</li>
+</ul>
+
+<hr>
+<p> Get the sha-bangs just right.  We'll worry about permissions. </p>
+
+<hr>
+<h2> Submission </h2>
+
+<ul>
+	<li> Your labsheet </li>
+	<li> <span class='fn'>count.bash</span> </li>
+	<li> <span class='fn'>reextend</span> </li>
+	<li> <span class='fn'>organiseMusic</span> </li>
+</ul>
+
+<!--
+<p> There's a <tt>Makefile</tt> in the lab directory that simply checks for existence of your bash scripts, and checks
+the syntax (see the <tt>-n</tt> option to bash).  A bunch of setup needs to be done to test your scripts.  I might throw
+it in later, but that would make things more complicated. </p>
+-->
+
+</body>
+</html>

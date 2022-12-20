@@ -1,0 +1,13 @@
+Q1: outout is true. because '2' have greater value in string than '1' in ACSII table
+Q2: output is "All we have to decide is what to do with the chocolate that is given us..."
+	 Becuase, by using 'grep' fuction, we found word 'chocolate' in file 'mySetting'
+	'&>/dev/null' is we redirect standar output and error of function 'grep to dev/null
+Q3: output is 2. Becuase 13 divide by 5 is 2.6 but stdout takes only interger number
+Q4: echo is 0. Beause the stament in previous command is success
+Q5: output 1: "5 12 13"
+    output 2: "5 13"
+	The output is different because in tupper command line, we only set x for that subsell.
+	we didn;t set x as environment variable
+Q6: output is {'Item','Another','item'}
+Q7: output is{'Item', 'Another Item'}
+Q8: output is{'Item', 'Another Item'}

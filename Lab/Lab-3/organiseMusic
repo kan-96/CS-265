@@ -1,0 +1,16 @@
+#!/bin/bash
+#organiseMusic - organise song file by name in its artist directory
+#Khoa Nguyen
+#10/09
+
+for f in *.mp3 ; do
+	if [ -f "$f" ] ; then
+		artist="$(echo -e "${f}" | cut -d'-' -f 1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+#Sec used to remove space after artish and before song title if they have one
+		songTitle="$(echo -e "${f}" | cut -d'-' -f 2 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+		mkdir -p "$artist"	
+		mv "$f" "$artist//$songTitle"	
+	fi
+done
+		
+
