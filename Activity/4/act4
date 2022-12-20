@@ -1,0 +1,7 @@
+Yahmin Haj ykh23
+Khoa Nguyen kn574
+
+Q1: Becuase we wanted to add number in front of every single line, and the bash interpeter cannot deal with special character
+Q2: sed '/^the/ d' s1
+Q3: No, because there is no special characters in command line to interpeter
+Q4: sed '/<head>/,/<\/head>/ s/Kurt/Vera' s1
