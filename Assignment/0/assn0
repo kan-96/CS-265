@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+#
+#assn0.py ~ Read stream of Fahrenheit temperatures, as float and convert its to Celcius
+#Khoa Nguyen
+#10/07
+#python 3.8.10
+#on GNU/Linux 5.13.0.125-generic x86_64
+#
+#DemonstratesL open, sys.stdin, sys.stdout, try, except, calculation
+
+import sys
+import os
+def lookYYZ ():
+	'''lookYYZ()- function - look up environment variable name YYZ
+		requires: name of variable, and environment variable from  os support
+		ensures: return string to confirm if there is environ variable name YYZ
+					return string fail if there is invalid environment variable'''
+	try:
+		string = "YYZ is " + os.environ["YYZ"]
+		print("{0:<22s} {s}".format(string, s= "OK"))
+	except KeyError:
+		stringerr = "YYZ is empty"
+		print("{0:<20s} {s}".format(stringerr, s = "FAIL"))
+
+def convertFtoC (f):
+	'''convertFtoC(f) - function to convert input-value as fahrenheit and return celcis value
+		requires: valid input as Fahrenheit value
+		ensures: retun value as Celcius degree'''
+	c = (f-32)/1.8
+	return c
+
+def main(args):
+	'''main(args)- function to take input from stdin if there is no argumanet on command line, and take value convert them
+		from f to c, then print verification of environment variable
+		requires: sys.stdin if argument from command less than 1, argv[] or file  from command line, convertFtoC()
+		function and lookYYZ() function for os.environ
+		ensure: print out value of Celcius if input is either int or float variable, and then
+					verification of 'YYZ' envrionment variable'''
+	if len(args) < 2:
+		fin = sys.stdin
+	else:
+		try:
+			input = open(args[1], "r")
+		except:
+			sys.stdout.write(f'Unable to open {args[1]} for reading.\n')
+	for i in fin:
+		
+		try:	
+			temp = float(i)
+			temp = float(convertFtoC(temp))
+			sys.stdout.write('{:6.1f}\n'.format(temp))
+		except:
+			sys.stdout.write('\n')
+	print('')
+	lookYYZ()
+	fin.close()
+
+if __name__ == "__main__":
+	sys.exit(main(sys.argv))	
+	
+

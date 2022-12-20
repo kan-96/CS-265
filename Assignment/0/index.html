@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Kurt Schmidt" />
+  <title> Assignment 0: Minimal Expectations </title>
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description"
+		content="Assignment for CS265 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Assignment">
+	<meta name="Audience" content="All">
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language="JavaScript" src="../../courseInfo.js"></script>
+	<script language="JavaScript" src="../../Scripts/courseFormat.js"></script>
+	<link href='../assn.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+<header id="title-block-header">
+<h1> Assignment 0: Minimal Expectations </h1>
+<h3> CS 265 Advanced Programming Techniques </h3>
+</header>
+
+
+<h2> Introduction </h2>
+
+	<p> This assignment serves to set some minimum expections for the course. It is, by <em>no</em> means, complete. It
+	should, instead, be considered as an example of performance one might reasonably expect of a programming student who’s
+	been through the CS1 sequence, has graduated high school, studied calculus; of one who understands that, while
+	following directions is always important, computers are literal creatures, that understanding and following the
+	specifications is imperative, and that assumptions must be recognised and examined. </p>
+
+	<p> E.g., I expect your code to be neat. I expect file header comments, and function header comments. I expect that
+	you’re mature enough to break your program into functions. I expect you to pay attention to specifications, to follow
+	directions. You should get filenames right; that includes capitalisation. Throughout the term I will change the format
+	of filenames, so you don’t get into a groove, develop bad habits, make assumptions. </p>
+
+<h2> The Assignment </h2>
+
+	<p> You will write a Python3 program that converts temperatures in Fahrenheit (as a float) to Celsius.  It will
+	then read an environment variable, and print a message. </p>
+
+	<p> The top-level file (where execution begins) will be called <span class='fn'>assn0</span> . </p>
+
+<h3> The Input </h3>
+
+	<p> You will read a stream of Fahrenheit temperatures, as floats, one per line, until EOF. For each temperature
+	successfully read, convert to Celsius, output the value, one per line. </p>
+
+	<p> If you can not successfully read a float, output a blank line </p>
+
+	<p> If an argument is provided on the command line, assume it’s a filename, and take your input from that file. If
+	there is no argument provided, read <span class='fn'>stdin</span>. </p>
+
+	<p> You will do nothing different if the input is <span class='fn'>stdin</span>; it’s just another stream. This
+	portion of the assignment isn’t interactive. I don’t want prompts, superfluous output, etc. </p>
+
+	<p> See <span class='fn'>Labs/Python/input.py</span> in the course directory for an example of reading a line at a
+	time. </p>
+
+	<p> You will read one value per line. </p>
+
+	<p> Your program will also look at the environment variables <code>YYZ</code>.  Python's <code>os.environ</code>
+		dictionary will be useful here. </p>
+
+<h3> The Output </h3>
+
+	<p> For each line read, you will output to <span class='fn'>stdout</span> exactly one line: either the same
+		temperature converted to Celsius, without decoration, or, if the input wasn’t a valid int or float, print a blank
+		line. </p>
+
+	<p> Each number will be printed in a minimum field width of 6, with 1 digit after the decimal, lined up on the
+	decimal. </p>
+
+<div class='output'>
+<pre> -40.0
+ -23.3
+ -17.8
+   0.0
+  22.2
+  37.0</pre>
+</div>
+
+	<p> Output a blank line </p>
+
+	<p> If <code>YYZ</code> is empty or is undefined , print to <span class='fn'>stdout</span> a single line: </p>
+
+<div class='output'>
+<pre>YYZ is empty       FAIL</pre>
+</div>
+
+	<p> , where <code>FAIL</code> starts in column 20.  Otherwise, print a single line: </p>
+
+<div class='output'>
+<pre>YYZ is &lt;yyz&gt;         OK</pre>
+</div>
+
+	<p> , where <code>&lt;yyz&gt;</code> is the value of <code>YYZ</code>.  The <code>OK</code> begins in column
+	22, unless the message is too large. </p>
+
+<h3 id="other-specifications">Other Specifications</h3>
+
+<h4 id="development-and-testing">Development and Testing</h4>
+
+	<p> You will develop on the CS Department Linux machines, <code>tux.cs.drexel.edu</code>. You will use the Vim editor,
+	or Emacs. </p>
+
+<h4 id="functions"> Functions </h4>
+
+	<p> Minimally, you will write a function to convert Fahrenheit to Celsius. </p>
+
+<h4 id="submit-a-readme"> Submit a README </h4>
+
+	<p> Submit a file in Pandoc Markdown text called <span class='fn'>README.md</span> . Describe what languages you know.
+	Name the editor that you’re using.  <a href='README.md'>Download a sample</a> to get you started. </p>
+
+<h4 id="makefile"> Makefile </h4>
+
+	<p> Submit a file called <span class='fn'>Makefile</span>. It must contain the following targets: </p>
+
+	<ul>
+		<li> <code>view</code> &mdash; Shows all of the source code in a pager, like <code>less</code> </li>
+		<li> <code>run</code> &mdash; Runs your program, with no arguments </li>
+		<li> <code>clean</code> &mdash; Cleans up any intermediate files, if your program creates them. If not, this target
+			must still exist, and do nothing </li>
+	</ul>
+
+	<p> From the course directory on Tux copy <span class='fn'>Assignments/Assn0/Makefile</span> to your assignment
+	directory; it’s an excellent place to start. You’ll need to use your filename(s), and you might need to modify the
+	<code>clean</code> target, depending on your program. </p>
+
+	<p> Test your makefile before submitting: </p>
+
+<div class='input'><pre>$ make hello
+$ make view
+$ make run &lt; some_test_file
+$ make clean
+</div>
+
+	<p> If the <code>hello</code> target didn't work, then you didn’t properly copy the file from the assignment
+	directory. </p>
+
+
+<h3 id="common-expected-guidelines"> Common (Expected) Guidelines </h3>
+
+	<p> Everything discussed in this assignment should be applied to anything you submit, and not just for this
+	course.  Good style and following directions are part of programming. </p>
+
+<h4 id="sha-bang"> Sha-Bang </h4>
+
+	<p> <em>Scripts</em>, or <em>interpreted files</em>, which would like to run as native executables, need to have a
+	<em>sha-bang</em> (also, <em>hashbang</em> or <em>pound bang</em>). So, scripts written in Bash, C shell, Korn shell,
+	AWK, Python, Perl, etc. </p>
+
+	<p> The sha-bang identifies the interpreter who is meant to read this file. All shells will crack the file open, look
+	for a sha-bang, and, if found, fire up the named interpreter, hand off the file as input. </p>
+
+	<p> To be found, the sha-bang <strong>must</strong> start in line 1 column 1 of the file. It is the 2 special
+	characters <code>#!</code>, followed by the path to the target interpreter. </p>
+
+	<p> Note, <code>/usr/bin/env <i>prog</i></code> will search your <code>$PATH</code> for <code><i>prog</i></code>. </p>
+
+	<p> Some examples: </p>
+
+<div class='file'>
+<pre>#!/bin/bash
+#
+# grade - test harness for grading programs
+# ...</pre>
+</div>
+
+<div class='file'><pre>#!/usr/bin/awk -f</pre></div>
+
+<div class='file'><pre>#!/usr/bin/env python3</pre></div>
+
+
+<h4> Editor </h4>
+
+<p> Indents should be 3 or 4 characters; I'll also accept 2. </p>
+
+<p> Source files should have a minimum width of 80 columns, and a maximum width of 120.  120 Columns is preferred. </p>
+
+<h4 id="file-header-comments">File Header Comments</h4>
+
+	<p> All source files will have header comments: </p>
+	<ul>
+		<li> Name and brief description of the purpose of the file <br/>Examples:
+			<ul>
+				<li> “Interface for the CSV functions” </li>
+				<li> “Implementation of the Email class methods” </li>
+				<li> “Driver for the ice cream assignment” </li>
+			</ul>
+		</li>
+		<li> Your name </li>
+		<li> The date </li>
+		<li> Platform information:
+			<ul>
+				<li> The compiler or interpreter which will read this file, with version info </li>
+				<li> Information on the target OS.  Try <span class='cn'>uname -rio</span> </li>
+			</ul>
+		</li>
+	</ul>
+
+	<p> For example: </p>
+
+<div class="file">
+<pre>/*****************************************************
+* stack.c -- implementation of the stack functions
+*
+* Kurt Schmidt
+* FEB 2022
+*
+* gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0, on
+* GNU/Linux 5.4.0-100-generic x86_64
+***************************************************/</pre>
+</div>
+
+	<p> Other info commonly listed: </p>
+	<ul>
+		<li> Notes for other programmers to use
+			<ul>
+				<li> Class invariants </li>
+				<li> Required external resources </li>
+			</ul>
+		</li>
+		<li> Change log </li>
+	</ul>
+
+<h4 id="function-header-comments"> Function Header Comments </h4>
+
+	<p> Each function declaration should have the following information: </p>
+
+	<ul>
+		<li> Purpose </li>
+		<li> Inputs </li>
+		<li> Outputs </li>
+		<li> Side-Effects </li>
+	</ul>
+
+	<p> Alternatively, if you’d rather think about it this way: </p>
+
+	<ul>
+		<li> Purpose </li>
+		<li> Pre-conditions </li>
+		<li> Post-conditions </li>
+	</ul>
+
+	<p> E.g.: </p>
+
+<div class='file'>
+<pre>  /* cookieMonsterSine - computes sine(t), at a cost
+   * Requires: angle t, measured in Furmans (subdivision of brads)
+   *           global cookiePlate > 0
+   * Ensures:  returns sine( t )
+   *           cookiePlate has decreased */
+double cookieMonsterSine( double t ) ;</pre>
+</div>
+
+	<p> You should take advantage of any documentation-generating tools. E.g., Python has doc strings: </p>
+
+<div class='file'>
+<pre>define cookieMonsterSine( t ) :
+  '''cookieMonsterSine - computes sine(t), at a cost
+     Requires: angle t (float), measured in Furmans (subdivision of brads)
+               global cookiePlate (int) > 0
+     Ensures:  returns sine( t ) as a float
+               cookiePlate has decreased'''</pre>
+</div>
+
+<h3 id="style"> Style </h3>
+
+	<p> You discussed style previously. You should continue developing your own personal style. You are not done; you are
+	near the beginning. </p>
+
+<h4 id="legibility">Legibility</h4>
+
+	<p> Code should be legible. Legible to you, and to programmers who follow. We use idioms towards this end, common ways
+	of accomplishing common tasks, in a given language. </p>
+
+	<p> Code that is harder to read is more likely to contain errors. Legible code is easier to debug and maintain. </p>
+
+<h4 id="comments">Comments</h4>
+
+	<p> Legible code shouldn’t need a lot of comments. </p>
+
+	<ul>
+		<li> Avoid stating the obvious </li>
+		<li> Avoid contradicting the code </li>
+		<li> Don’t use comments to explain poorly-written code </li>
+	</ul>
+
+	<p> Do: </p>
+
+	<ul>
+		<li> Note units! </li>
+		<li> Annotate files and functions, as described above </li>
+		<li> Clarify, don’t confuse </li>
+	</ul>
+
+<h4 id="file-names">File Names</h4>
+
+	<p> You must pay attention to file names. Mind your assumptions. </p>
+
+	<ul>
+		<li> File extensions are not required by the filesystem </li>
+		<li> Case matters in *nix </li>
+	</ul>
+
+	<p> We will be changing up filename formats throughout the term, to keep you on your toes </p>
+
+<h2 id="general-hints">General Hints</h2>
+
+<h3 id="functions-1">Functions</h3>
+
+	<p> We tend to design top-down, and implement bottom-up. Start with your lowest-level functions, test each one well.
+	Then use these to synthesize larger functions, again, testing each one as you write it. </p>
+
+<h3 id="design-and-implementation">Design and Implementation</h3>
+
+	<p> Do <strong>not</strong> attempt to write the entire program, and then start testing. As mentioned, try to break
+	the problem into smaller tasks which can be coded into functions. </p>
+
+<p> Consider this assignment; we have one obvious function, which you should code up and test well. </p>
+
+<p> The rest, even if you don’t break down further into functions, can be developed incrementally: </p>
+
+	<ul>
+		<li> You need to process a line of input, a string storing a float </li>
+		<li> You need to open a file provided as a command-line argument
+			<ul>
+				<li> If no argument is provided, read <code>stdin</code> </li>
+				<li> Read input the same </li>
+			</ul>
+		</li>
+		<li> Separately, you need to take input from a file, or from <code>stdin</code> </li>
+		<li> Separately, you need to continue reading a line of input until EOF, regardless of source </li>
+		<li> Get the output format right </li>
+	</ul>
+
+	<p> You have several logical pieces to develop and test separately. Put them together incrementally, testing as you
+	go. </p>
+
+	<p> It is better to submit a program that parses and supplies only part of the solution correctly than to attempt the
+	entire thing and get incorrect results. And it is <em>much</em> preferable to submitting something that doesn't run.
+	</p>
+
+<h3 id="target-platform"> Target Platform </h3>
+
+	<p> Again, you are to develop entirely on Tux, using a full-featured editor, either Vim or Emacs. Your programs are
+	tested on tux. If it doesn't run, or doesn't run correctly, it doesn't much matter if it ran on your Windows machine.
+	</p>
+
+	<p> Test the Makefile before you submit. </p>
+
+<h2 id="submission">Submission</h2>
+
+	<p> Submit the following files: </p>
+	<ul>
+		<li> <span class='fn'>assn0</span> &mdash; your top-level script </li>
+		<li> Any other source code </li>
+		<li> <span class='fn'>README.md</span> &mdash; Text file with information </li>
+		<li> <span class='fn'>Makefile</span> </li>
+	</ul>
+
+</body>
+</html>
