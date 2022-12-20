@@ -1,0 +1,9 @@
+Q1: when we use gcc complier we could check local varible, but we couldn't print i with tcc-complier.
+Q3: i = 5 , j =3
+	a. i =8
+	b. i =3
+	c. i =4
+	d. 2
+	e. 2
+Q4: the differece is the getchar() still read whitespace, and take it as string. while scanf don't read whitespace.
+Q5: x =12.3, y = 0.6 , i =45
