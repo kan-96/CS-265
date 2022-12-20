@@ -1,0 +1,251 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Galen Long & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> CS265 Activity 3 </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<!--
+<div class='warn'><b>Under Construction</b>  Reload, until this message goes away. </div>
+-->
+
+<h1> Activity 3 &mdash; <tt>wget</tt>, Subshells, and Bash Scripting </h1>
+
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act3</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/3/</span> .  Copy
+them as needed. </p>
+
+<h3> Using <span class='cmd'>wget</span> </h3>
+
+	<ol>
+		<li> <span class='cmd'>wget</span> (or <span class='cmd'>curl</span>) can be used to fetch a resource off the Web
+			and store it locally
+			<div class='cli'>
+				<pre> $ wget http://www.cs.drexel.edu/~kschmidt/CS265/Activities/2/index.html </pre>
+			</div>
+		</li>
+
+		<li> I hid a few Easter eggs in this file, of the form <span class='code'>&lt;!--egg <i>item</i>--&gt;</span>.
+			Let's find them:
+
+			<div class='cli'>
+				<pre> $ grep '&lt;!--egg [^&gt;]*--&gt;' index.html </pre>
+			</div>
+
+			<script><!--
+				q = 'What are the items hidden in the file?'
+				question( q )
+			//--></script>
+		</li>
+	</ol>
+
+	<!-- TODO:  at, cron -->
+
+<h3> Subshells, Environment </h3>
+
+	<ol>
+		<li> Copy <span class='fn'>~kschmidt/public_html/CS265/Labs/Bash/printx</span> to your directory </li>
+		<li> Take a look at the file </li>
+		<li> Try this:
+			<div class='cli'>
+<pre>$ unset x
+$ ( x=27 ; echo $x )
+$ echo $x </pre>
+			</div>
+			<script><!--
+				q = "Why did the last <span class='cmd'>echo</span> not print anything?"
+				question( q )
+			//--></script>
+			<div class='cli'>
+<pre>$ ./printx
+$ x=12 ./printx 
+$ echo $x </pre>
+			</div>
+			<script><!--
+				q = "Why is x still unassigned?"
+				question( q )
+			//--></script>
+		</li>
+		<li> 
+			<div class='cli'>
+<pre>$ x=5
+$ ./printx </pre>
+			</div>
+
+			<script><!--
+				q = "Why didn't <span class='cmd'>printx</span> find the <span class='cmd'>x</span> ?"
+				question( q )
+			//--></script>
+		</li>
+		
+	</ol>
+
+<h3> Tests, <span class='code'>[[]]</span> </h3>
+
+	<ol>
+		<li> Consider this test, doesn't work as we intend:
+			<div class='cli'>
+<pre> $ [[ 12 &lt; 3 ]] &amp;&amp; echo true
+			</div>
+			<script><!--
+				q = "Fix the <span class='cmd'>[[]]</span> test to do a numeric, rather than lexical, comparison"
+				question( q )
+			//--></script>
+			<script><!--
+				q = "Now use <span class='cmd'>(())</span> to do a numeric comparison."
+				question( q )
+			//--></script>
+		</li>
+
+	</ol>
+
+<h3> Loops and Whitespace </h3>
+
+	<ol>
+		<li> Copy <span class='fn'>list</span> from the Activity directory </li>
+		<li> View the contents </li>
+		<li> Remember, the <span class='cmd'>for</span> loop expects a list, and it's broken up w/the same rules that the
+				command line is.  By default, broken over white space.  Try this:
+			<div class='cli'>
+<pre>$ for i in $(cat list) ; do
+   echo $i
+done </pre>
+			</div>
+		</li>
+		<li> Recall that, <span class='cmd'>read</span> stores the entire line.  Try this:
+			<div class='cli'>
+<pre>$ while read i ; do
+   echo $i
+done &lt; list </pre>
+			</div>
+		</li>
+	</ol>
+
+<h4> Loops and Filenames </h4>
+
+	<ol>
+		<li> Use <span class='cmd'>touch</span> to create the following files in your Activity directory:
+			<ul>
+				<li> <span class='fn'>file1</span> </li>
+				<li> <span class='fn'>file2</span> </li>
+				<li> <span class='fn'>some file</span> </li>
+				<li> <span class='fn'>another file</span> </li>
+			</ul>
+			(Remember to quote or escape the spaces.)
+		</li>
+		<li> To iterate over all files, this idiom always works:
+			<div class='cli'>
+<pre>$ ls -1 | while read f ; do
+   echo $f
+done </pre>
+			</div>
+		</li>
+		<li> Try this loop:
+			<div class='cli'>
+<pre>$ for f in $(ls -1) ; do
+   echo $f
+done </pre>
+			</div>
+			<script><!--
+				q = "How did this code do at printing filenames?"
+				question( q )
+			//--></script>
+		</li>
+		<li> Quotes protect white space.  Try this loop:
+			<div class='cli'>
+<pre>$ for f in "$(ls -1)" ; do
+   echo $f
+done </pre>
+			</div>
+			<script><!--
+				q = "How'd we do this time?"
+				question( q )
+			//--></script>
+		</li>
+		<li> Remember, <span class='cmd'>ls</span> is an external utility.  But <i>patterns</i>, <i>name globs</i>, are Bash
+				builtins.  Try this:
+			<div class='cli'>
+<pre>$ for f in * ; do
+   echo $f
+done </pre>
+			</div>
+		</li>
+	</ol>
+
+<h3> Use <span class='cmd'>read</span> to Parse Tokens </h3>
+
+	<ol>
+		<li> Copy <span class='fn'>items</span> and <span class='fn'>items.csv</span> </li>
+		<li> <span class='cmd'>read</span> can take more than one argument:
+			<div class='cli'>
+<pre>$ while read c1 c2 rest ; do
+   echo $c1
+   echo $c2
+   echo $rest
+   echo ""
+done &lt; items </pre>
+			</div>
+		</li>
+		<li> And, we can change the input field separator, read a CSV:
+			<div class='cli'>
+<pre>$ while IFS=, read c1 c2 rest ; do
+   echo $c1
+   echo $c2
+   echo $rest
+   echo ""
+done &lt; items.csv </pre>
+			</div>
+		</li>
+	</ol>
+
+<h3> Parameter Expansion </h3>
+
+	<ol>
+		<li> Enter the following assignments:
+			<div class='cli'>
+<pre>$ a=ah.bay.say
+$ b=alpha.bravo.charlie </pre>
+			</div>
+			<script><!--
+				q = "Record the output for each of the following expansions"
+				question( q )
+			//--></script>
+			<ol type='a'>
+				<li> <span class='code'>echo ${#b}</span> </li>
+				<li> <span class='code'>echo ${b:3}</span> </li>
+				<li> <span class='code'>echo ${b:3:5}</span> </li>
+				<li> <span class='code'>echo ${b#*.}</span> </li>
+				<li> <span class='code'>echo ${b##*.}</span> </li>
+				<li> <span class='code'>echo ${b%.*}</span> </li>
+				<li> <span class='code'>echo ${b%%.*}</span> </li>
+				<li> <span class='code'>echo ${a/.*./.MIDDLE.}</span> </li>
+			</ol>
+		</li>
+	</ol>
+
+</body>
+</html>

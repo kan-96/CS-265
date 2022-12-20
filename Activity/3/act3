@@ -1,0 +1,21 @@
+Q1:knife, hat, and chocolate
+Q2:the last echo didn't print anything; because in previous commnand we only set x to subsell.
+Q3: Because we used subsell to put x to program "printx". we haven't set x as enrironment variable.
+Q4: becuase we still haven't set x as  environment variable . we just set x as a shell variable. But the program printx asks for environment variable
+Q5: [[ 12 -lt 3 ]] && echo true
+Q6:  (( 12 < 3 )) || echo false
+Q7: the results of two commands were different.
+	Becuase:
+		'ls -1 | while read f ;do' : they read directory and print out name of each file
+		'for f in $(ls -1) ; do' : they read the director and print each word in files
+Q8: the output print out all file name of directory in one line. Becasue we provide "$(ls -1)" as one argument
+Q9:	a. 19
+	b. ha.bravo.charlie
+	c. ha.br
+	d. bravo.charlie
+	e. charlie
+	f. alpha.bravo
+	g. aplha
+	h. ah.MIDDLE.say
+
+
