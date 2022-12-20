@@ -1,0 +1,6 @@
+1. An abolute path contain full path of address of file location to refer certain directory. Relative path refer to the location of directory using current directory as referance
+
+2.cd ~kschmidt/public_html/CS265/Labs/Unix ~kn574/CS265/Activity/1
+
+3.cd !kschmidt/public_html/crawl.html ~kn574/crawl.html
+
