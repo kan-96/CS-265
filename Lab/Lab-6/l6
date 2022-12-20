@@ -1,0 +1,48 @@
+Khoa Nguyen kn574
+Q1: a. 0
+	b. 1
+	c. 1
+	d. 1
+	e. 1
+	f. 1
+	g. 1
+	h. 1
+	i. 1
+C-Loops Q1: 5 4 3 2 
+C-Loops Q2: output is 1 infinity, becuase i is always greater than or equal 1
+C-Loops Q3:  
+char resp = 'y' ;
+  
+  while(1 )
+  {
+     // processing...
+  
+     printf( "\nEnter another input? (y/[n]) => " ) ;
+        // the space preceding the %c tells scanf to skip whitespace
+     scanf( " %c", &resp ) ;
+	  if ( resp == 'n' || resp =='N')
+			break;
+  }
+C-Loop Q5: ul function
+
+void ul( size_t n )
+{
+   for (size_t i = n ; i >0 ; i--)  {
+      for (size_t j = 0; j<i ; j++)
+         fputs("*",stdout);
+      fputs("\n",stdout);
+   }
+}
+C-Loop Q6: ur function
+
+void ur( size_t n )
+{
+   for (size_t i =n; i >0 ;i--)  {
+      for (size_t j =0 ; j <n-i ; j++)
+         fputs(" ",stdout);
+      for (size_t j =0 ; j<i; j++)
+         fputs("*",stdout);
+      fputs("\n",stdout);
+   }
+}
+
