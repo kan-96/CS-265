@@ -1,0 +1,42 @@
+Khoa Nguyen - kn574
+Q1.1:
+
+void stackResize( stack *s, size_t new_size )
+{
+	// TODO
+	ELEM *new =NULL;
+	new = s->arr;
+	s->cap = new_size;
+	s->arr = (ELEM*) realloc(s->arr,sizeof(ELEM)* new_size);
+	for (int i =0 ; i < s->size; i++)	{
+		s->arr[i] = new[i];
+	}
+	free(new);
+	return ;
+}
+Q2.1
+	output is segmetation fault. There are 2 new files. core and bug3
+Q2.2:
+	function inTable()
+Q2.3:
+A. bug1.c couldn't compile. Fixed by passing '&n' by reference in scanf.
+B. bug2.c couldn't compile. Fixed printf() funtion: %d for intergers and %f for floats.
+C. Ran the program in gdb:
+(gdb) bt
+#0  0x00007ffff7b86936 in ?? () from /lib/libc.so.6
+#1  0x000000000040099f in inTable (s=0x601160 "abc\n") at bug3.c:79
+#2  0x000000000040090d in main (argc=2, argv=0x7fffffffe408) at bug3.c:58
+Looked at line 58 and 79 in bug3.c
+Checked index
+Looking for how numlines is set
+! set numline increased after saave data in 'st'. seg fault is being solved
+E.
+'8 3 - 2 -' suppose to be 3, but program'result is 7
+fault in T-MINUS. Switched position of first and second pop.
+F. The program needs a random rotation position so it doesn't return an array with the first element empty + (seg error).
+Go to gdb and see where the problem is and find out what caused it. I 
+ did set assertions using tried and true methods that you know are correct, comparing every element of the array to see if it's actually in order.
+Q2.
+The compiler can only detect syntax errors (and can't catch error due to logical and designed error)
+Q2.5:
+the program will crash becuase qsort is looking for interger neither string or char.
