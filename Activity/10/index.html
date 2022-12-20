@@ -1,0 +1,210 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}});
+	</script>
+	<title> Asymptotic Behavior </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Activity 10 &mdash; Asymptotic Behavior </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act10</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/10/</span> .  Copy
+them as needed. </p>
+
+<h2> Discussion </h2>
+
+<p> Go over Lectures/Performance/growth.pdf . </p>
+
+
+<h3> Asymptotic Analysis of Data </h3>
+
+<ul>
+	<li> We want to find good (useful, descriptive) upper- and lower-bounds for $T(n)$ .  (Our goal is to find a Theta
+		equivalence, but the data is likely not sufficient for that.)
+		<ul>
+			<li> Put your points $(n, T(n))$ in a table </li>
+			<li> Did the values $T(n)$ increase with $n$?  Then $T(n)$ is bound below by a constant.  That is,
+				$T(n) \in \omega{}(1)$ </li>
+		</ul>
+	</li>
+
+	<li> We wish to find $f(n)$, such that $T(n) \in \Theta{}( f(n) )$
+		<p> Again, we likely can't.  So, we'll find the best (highest) lower bound we can, and the lowest upper bound we
+			can. </p>
+		<ul>
+			<li> Guess at $f(n)$ .  E.g., start at $f(n) = n$ </li>
+			<li> Add a column to your table, $\frac{T(n)}{f(n)}$ </li>
+			<li> If the values in that column still increase with $n$, then $f(n)$ is a lower bound for $T(n)$ .  We say
+				$T(n) \in \Omega{}(f(n))$
+			<li> If the values in that column are decreasing, then $f(n)$ is an upper bound for $T(n)$.  We say
+				$T(n) \in O(f(n))$
+		</ul>
+	</li>
+	<li> We try to refine our upper and lower bounds, as long as we're comfortable with what the data is saying </li>
+</ul>
+
+<h3> Example </h3>
+
+<table width='400' border='1' cellpadding='0'>
+	<tr>
+		<th rowspan='2'><i>n</i></th>
+		<th rowspan='2'>T(<i>n</i>)</th>
+		<th colspan='3'>T(<i>n</i>) / f(<i>n</i>)</th>
+	</tr>
+	<tr>
+		<th>f(<i>n</i>) = <i>n</i></th>
+		<th>f(<i>n</i>)=<i>n</i><sup>3</sup></th>
+		<th>f(<i>n</i>)=<i>n</i><sup>2</sup></th>
+	</tr>
+	<tr>
+		<th>10</th>
+		<td><center>520</center></td>
+		<td><center>52</center></td>
+		<td><center>0.520000</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+	<tr>
+		<th>20</th>
+		<td><center>2080</center></td>
+		<td><center>104</center></td>
+		<td><center>0.260000</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+	<tr>
+		<th>30</th>
+		<td><center>4680</center></td>
+		<td><center>156</center></td>
+		<td><center>0.173333</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+	<tr>
+		<th>40</th>
+		<td><center>8320</center></td>
+		<td><center>208</center></td>
+		<td><center>0.130000</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+	<tr>
+		<th>50</th>
+		<td><center>13000</center></td>
+		<td><center>260</center></td>
+		<td><center>0.104000</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+	<tr>
+		<th>60</th>
+		<td><center>18720</center></td>
+		<td><center>312</center></td>
+		<td><center>0.086667</center></td>
+		<td><center>5.2</center></td>
+	</tr>
+</table>
+
+<p> Clearly $T(n)$ is increasing.  So, it is bound below (but not
+tightly) by a constant.  We say $T(n) \in \omega( 1 )$ . </p>
+
+<blockquote><b>Note:</b>  Big-O is an upper bound, which may or may not be tight.  Little-O is a <em>loose</em> upper
+	bound, which is <u>not</u> tight.  Similarly, Big-Omega is a lower bound, which may or may not be tight, and
+	little-omega, &#969;, is a loose lower bound, <u>not</u> tight.
+</blockquote>
+
+<p> When we divide $T(n)$ by $f(n) = n$ we see these values apparently still increasing to $\infty$ .  So, $T(n)$ is
+	bound below by a line.  We say $T(n) \in \Omega( n )$.  In other words, $T(n)$ grows at least as fast as a line. </p>
+
+<p> Next we choose $f(n) = n^3$ , and we see that $\frac{T(n)}{n^3}$ is probably decreasing to zero (we need to look
+	around a bit more to be sure).  This means that $n^3$ is an upper bound.  I.e., $T(n)$ grows no faster than $n^3$ .
+	So, $T(n) \in O( n^3 )$ . </p>
+
+<p> We now choose $f(n) = n^2$ .  Well, I should've made this example a little more interesting.
+	We can surmise that $T(n)$ is, in fact, $5.2 n^2$ .  The important point is that <nobr>$\frac{T(n)}{n^2}$</nobr> is
+	tending towards some non-zero constant.  So, <nobr>$T(n) \in \Theta( n^2 )$</nobr>. </p>
+
+<hr width='80%' />
+
+<h2> Instructions </h2>
+
+<p> Given the values of $Q(n)$: </p>
+
+<style>
+	table {
+		border-collapse: collapse ;
+		margin-left: auto ;
+		margin-right: auto ;
+	}
+	th { font-weight: bold ; }
+	table, th, td {
+		border: 1px solid darkblue ;
+		padding: 10px ;
+	}
+	td { text-align: right ; }
+	hr {
+		height: 4px ;
+		color: darkblue ;
+		background-color: darkblue ;
+		margin-left: 0 ;
+	}
+</style>
+
+<table>
+	<tr> <th><var>n</var></th> <th><var>Q(n)</var></th> </tr>
+	<tr> <td>100</td> <td>769.16</td> </tr>
+	<tr> <td>200</td> <td>4949.47</td> </tr>
+	<tr> <td>300</td> <td>14744.12</td> </tr>
+	<tr> <td>400</td> <td>32007.58</td> </tr>
+	<tr> <td>500</td> <td>58409.32</td> </tr>
+	<tr> <td>600</td> <td>95494.98</td> </tr>
+	<tr> <td>700</td> <td>144718.77</td> </tr>
+	<tr> <td>800</td> <td>207463.14</td> </tr>
+	<tr> <td>900</td> <td>285052.10</td> </tr>
+	<tr> <td>1000</td> <td>378760.58</td> </tr>
+</table>
+
+<p>, analyse the data, as described above.  Add columns, find an upper and lower bound, try and move those bounds
+towards the function, make the most useful statements the data allows. </p>
+
+<script><!--
+	q = "Supply your chart [that is just tabular data, <i>n</i>, Q(<i>n</i>), Q(<i>n</i>)/f(<i>n</i>) \
+			for various choices of f(<i>n</i>)], <i>not</i> a graph, in your gradesheet, your observations \
+			for each column, and your conclusion."
+	question( q )
+	//--></script>
+
+<p> Scale each column as convenient.  That is, remove leading (misleading) and trailing zeroes.  If you use scientific
+notation, do <strong>not</strong> change exponents.  Make it easy on the eyeballs. </p>
+
+<p> And get the columns to line up nicely.  (No tabs.)  <strong>Limit yourself to 120 columns</strong>. </p>
+
+<p> Provide your observations on each column, what that column says (if anything).  Provide a conclusion, a succinct
+statement or two about the function you're exploring.  The best the data lets you say, and no more.  Use the notation,
+it's why it exists. </p>
+
+
+</body>
+</html>
