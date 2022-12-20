@@ -1,0 +1,28 @@
+Q1: find . -type d -name '2' -print
+Q2: find . -type f -name '*.html' -print
+Q3: find . -type f \( -name "*.html" -o -name "*.tex" /) -print
+Q4: the result is nothing has found
+Q5: The different is we specified the day in this section. We want to search the files have been modified from 3 days.
+Q6: find . -type f - exec grep -q Waldo {} \; -print
+Q7: 
+	 When pedestrians try to cross
+	 I let them know who's boss
+	 I never blow the horn or give them warning
+	 I ride all over town
+	 trying to run them down
+	 And it's seldom that they live to see the morning
+
+	   ["Plastic Jesus", circa 1969, sign-on
+	    song of disk jockey Don Imis]
+	%
+	God is real, unless declared integer.
+	%
+	Humanity's first sin was faith; the first virtue was doubt.
+	%
+	Any belief worth having must survive doubt.
+	%
+	Explaining the unknown by means of the unobservable
+	is always a perilous business.
+	%
+Q8: echo $PATH | tr ':' '\n' | wc -l
+Q12: the raw GPG file is  235 byte, the encoded file is 321. the encode file is 86 bytes
