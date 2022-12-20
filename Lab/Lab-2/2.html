@@ -1,0 +1,281 @@
+<!DOCTYPE doctype PUBLIC "-//w3c//dtd html 4.0 transitional//en">
+<html>
+<head>
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Expires" content="no-expire">
+	<meta name="Author" content="Vera Zaychik & Kurt Schmidt">
+	<meta name="Publisher" content="Drexel University">
+	<meta name="Copyright" content="">
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description"
+		content="Lab for CS265 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Lab">
+	<meta name="Audience" content="All">
+	<link rel='shortcut icon' type='image/gif'
+		href='../../images/drexel.gif'></link>
+	<script language="JavaScript" src="../courseInfo.js"></script>
+	<script language="JavaScript" src="../../Scripts/courseFormat.js"></script>
+	<title> Unix, Bash Intro </title>
+	<link href="labs.css" rel="stylesheet" type="text/css">
+</head>
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#FF0000"
+	background="../../images/blueTexture.jpeg">
+
+<h1> Lab 2 &ndash; Bash </h1>
+
+<p> Okay, just follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>lab2</span>. </p>
+
+<ul>
+	<li> The directory for this lab is <span class='fn'>~kschmidt/public_html/CS265/Labs/Bash/</span> </li>
+	<li> Make some appropriate subdirectory for this lab and go there </li>
+	<li> Look at (and run) <span class='fn'>eg.bash</span>.  There are examples in there of useful utilities and
+		Bash builtin commands.  We'll discuss Bash scripting (control structures and such) soon </li>
+</ul>
+
+<h2> Some more utilities: </h2>
+
+<h3> find </h3>
+<ul>
+	<li> Go to your lab directory
+		<div class='cli'>$ cd ~/CS265/Lab02  # Or whatever you called it </div>
+	</li>
+	<li> Create a subdirectory:
+		<div class='cli'>
+			$ mkdir Tmp
+		</div>
+	</li>
+	<li> Create some files :
+		<div class='cli'>
+			$ echo 'milk' &gt; list <br/>
+			$ echo 'cookies' &gt;&gt; list <br/>
+			$ echo '#!/bin/bash' &gt; Tmp/gotMe.bash <br/>
+			$ echo -e '\necho "I have no idea."' &gt;&gt; Tmp/gotMe.bash
+		</div>
+	</li>
+
+	<li> Go up to your course directory:
+		<div class='cli'>
+			$ pushd ..  # Or, wherever it is
+		</div>
+	</li>
+
+	<li> Try this search:
+		<div class='cli'>
+			$ find . -type f -mtime -2 -print
+		</div>
+	</li>
+
+		<script><!--
+			question( "What is the output?" )
+			//--></script>
+	</li>
+
+	<script><!--
+		question( "What would the <tt>find</tt> command be to find all files that end in <tt>.bash</tt>?" )
+		//--></script>
+
+	<li> Try it, until you get it right </li>
+
+	<li> Clean up that tmp directory </li>
+
+	<li> Return to your lab directory: 
+		<div class='cli'>
+			$ popd
+		</div>
+	</li>
+</ul>
+
+<h3> wc </h3>
+<ul>
+	<li> Try this:
+		<div class='cli'>
+			$ wc -w breadIsDangerous.txt
+		</div>
+
+		<script><!--
+			question( "What is the output?" )
+			//--></script>
+	</li>
+
+	<li> Try this:
+		<div class='cli'>
+			$ wc -w < breadIsDangerous.txt
+		</div>
+
+		<script><!--
+			question( "What is the output?" )
+			//--></script>
+	</li>
+	
+	<li> Use <span class='cmd'>ls -1</span> and <span class='cmd'>wc -l</span> joined with a pipe to count the number of
+			files in the current directory.
+		<script><!--
+			question( "Record the entire command you used." )
+			//--></script>
+	</li>
+
+	<div class='warn'>
+		If you can't easily distinguish a 1 (one) from an l (ell), (or a <span class='cmd'>1</span> from an <span
+		class='cmd'>l</span>) you should choose a different font for your terminal, and for your browser.
+	</div>
+</ul>
+
+<h3> grep </h3>
+<ul>
+	<li> Use <span class='cmd'>grep</span> to find all occurrences of <span class='code'>bread</span> in <span
+		class='fn'>breadIsDangerous.txt</span>
+		<script><!--
+			question( "Record the command." )
+			//--></script>
+	</li>
+			
+	<li> Use <span class='cmd'>grep</span>, <span class='cmd'>wc</span> (with the <span class='cmd'>-l</span> option), and a pipe to find how many lines contain the
+		string <span class='code'>the</span> . </p>
+		<script><!--
+			question( "Record the command." )
+			//--></script>
+	</li>
+</ul>
+
+<h3> ispell </h3>
+
+<ul>
+	<li> Correct spelling in the file <tt>spellExample</tt>:
+		<div class='cli'>
+			$ ispell -b spellExample
+		</div>
+		, follow the prompts.
+		<div class='warn'>
+			Note, if you hit <span class='key'>i</span> (insert), you added the current word to your personal dicionary,
+			<span class='fn'>~/.ispell_default</span> (or, something like that).  Delete the file, or edit it, remove the
+			words you don't want in there.
+		</div>
+		<div class='info'>
+			<span class='cmd'>aspell</span> is the GNU replacement for <span class='cmd'>ispell</span> .
+		</div>
+	</li>
+	<li> List the directory
+		<script><!--
+			question( "What is different?" )
+			//--></script>
+	</li>
+</ul>
+
+<h3> diff </h3>
+
+<ul>
+	<li> Add a line to the end of <tt>spellExample</tt>
+		<div class='cli'>
+			$ echo "An extra line" &gt;&gt; spellExample
+		</div>
+	</li>
+	<li> Type:
+		<div class='cli'>
+			$ diff spellExample.bak spellExample
+		</div>
+	</li>
+	<script><!--
+		question( "Explain the output" )
+		//--></script>
+	<li> Type
+		<div class='cli'>
+			diff spellExample spellExample
+		</div>
+	</li>
+	<script><!--
+		question( "What did you see this time?" )
+		//--></script>
+</ul>
+
+<h3> sort </h3>
+
+<ul>
+	<li> Type
+		<div class='cli'>$ sort numbers</div>
+	</li>
+	<script><!--
+		question( "Was the output what you expected?  Explain." )
+		//--></script>
+
+	<li> Type:
+		<div class='cli'>$ sort -n numbers</div>
+	</li>
+	<script><!--
+		question( "Was the output different?  Explain." )
+		//--></script>
+
+	<li> Try this:
+		<div class='cli'> $ ls -oh | sort -k4 -h -r </div>
+	</li>
+		<script><!--
+			question( "In what order are the files listed?" )
+			//--></script>
+</ul>
+
+
+<h3> More Pipes </h3>
+
+<ul>
+	<li> <script><!--
+			question( " Using <span class='cmd'>du *</span> (and some other utilities you've learned), show a command, \
+					single line, using pipes, that shows you the 8 largest files in your directory." )
+			//--></script>
+	</li>
+</ul>
+
+<h3> Using the Return Value, <tt>$?</tt> </h3>
+
+<ul>
+	<li> type the following:
+		<div class='cli'>
+			$ grep dough breadIsDangerous.txt <br/>
+			$ echo $? <br/>
+			$ grep uniqueString breadIsDangerous.txt <br/>
+			$ echo $? <br/>
+			$ grep dough noSuchFile <br/>
+			$ echo $?
+		</div>
+	</li>
+	<script><!--
+		question( "Explain the different return values (the man page for <span class='cmd'>grep</span> might help)." )
+		//--></script>
+</ul>
+
+<h3> Command Substitution </h3>
+
+<ul>
+	<li> Make sure that <span class='fn'>breadIsDangerous.txt</span> is in the CWD </li>
+	<li> type the following:
+		<div class='cli'>
+			$ f=breadIsDangerous.txt <br/>
+			$ echo "File $f has $(wc -w < "$f") words"
+		</div>
+	</li>
+	<script><!--
+		question( "Record the output." )
+		//--></script>
+
+	<li> Assuming that the current working directory is <span class='fn'> /home/abc123/CS265/Lab2</span>) for this
+		example, create a command (single line) using <span class='cmd'>pwd</span> that would output (echo)
+		<div class='output'>
+			The current directory is: /home/abc123/CS265/Lab2
+		</div>
+	</li>
+	<script><!--
+		question( "Record the command." )
+		//--></script>
+</ul>
+
+<hr>
+<h2> Submission </h2>
+
+<ul>
+	<li> <span class='fn'>lab2</span> &ndash; Your lab sheet </li>
+</ul>
+
+
+</body>
+</html>

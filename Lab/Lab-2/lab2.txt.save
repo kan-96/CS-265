@@ -1,0 +1,27 @@
+	 Q1: ./Lab/Lab2/Tmp/gotMe.bash
+	./Lab/Lab2/list
+	./Activity/2/kurt
+	./Activity/2/sensitive_data.sample.gpg.b64
+	./Activity/2/kurt.gpg
+Q2: find . -type f -name *.bash -mtime -2 -print
+Q3: 499 breadIsDangerous
+Q4: 499
+Q5: ls -1 | wc -l
+Q6: grep 'bread' breadIsDangerous.txt
+Q7: grep 'the' breadIsDangerous.tx | wc -l
+Q8:
+Q9:
+Q10:
+Q11: yes, it sorts numbers with base on a first number of whole number from low to high
+Q12: yes, it sorts input numbers form low value to high value
+Q13: the file are list base on order of size of directoy.
+Q14: du ~kn574 | sort -nr | head -n 8
+Q15: 1st grep: the command print out the strings contain "dough"
+	1st echo $?: 0, it means this command ran successful
+	2nd grep: no "uniqueString" in file
+	2nd echo $?: 1, it mean command ran unsuccessfull
+	3rd grep: we dont have a file name noSuchFile
+	3rd echo $?: 2, cannot access this command line-ardument
+Q16: File breadIsDangerous.txt has 499 words
+Q17: echo "the current directory is $(pwd)"
+
