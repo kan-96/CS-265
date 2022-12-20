@@ -1,0 +1,22 @@
+:wqQ2: The command lin became "echo Line Two", it append 'w' after T
+Q3: The command line now became "echo Line Three", 'l' became 'L'
+Q4: All the permissions for three groups in a current directory file
+Q5: I gave permission read to all other
+Q6: I gave permission to read and execute access to everyone
+Q7: Yes I can reah funny file
+Q8: yes, I can read hello.bash file
+Q9: Permission denied
+Q10: Two ways are. First using chmod 700 some_file. Second, using chmod 500 some_file
+Q11: I cann't make a change or write. Becasue I just set onle-read permission to myself
+Q12: ls *: list all file in directory
+	ls a*: list all file start with a in directory (annoy, annoy.cc)
+	ls *m*: itemList itemList-2cols TelecomTruths
+	ls anno?: annoy
+	ls annoy?
+Q13: Created a new file in directory name "a"
+Q14:
+	ls -h: human readable 
+	ls -l: long listing	
+	ls -t: sort list by time and day
+	ls -A: list all file in linux directory including hidden files
+	ls -d: list only directory with '*/'
