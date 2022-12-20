@@ -1,0 +1,108 @@
+#!/bin/bash
+#
+# a1-top: create dir.json include top level keys such as index required files, other
+# Khoa Nguyen
+# 10/22
+# GNU/Linux 5.4.0-126-generic x86_64
+# EDITOR
+# columns=110, tapstop=3
+if (($# >1 )) ; then
+	echo "Not a valid argument"
+else
+	currDir=${1:-$PWD}
+fi
+TAB='   ' #3 spaces
+TABSUB='      ' #6 spaces
+
+for dir in $(find . -type d) ; do
+	dirJson=$dir"/dir.json"
+	dirREADME=$dir"/README"
+	index=""
+	required=""
+	other=""
+	requiredFiles=""
+	requiredDir=""
+	otherFiles=""
+	otherDir=""
+	#Keys seraperate from README
+	if [[ -e $dirREADME ]] ; then
+		read index required  <<< $(awk -f parseReadme.awk $dirREADME)
+	fi
+	for file in $(find $dir -maxdepth 1 -printf "%f\n") ; do
+		if [[ "$required $index" !=  *$file* && $file != $dir ]] ; then
+			other+=${file##*/}" " 
+		fi
+	done	
+	#	echo $other $dir	
+	#echo $index $required $other
+
+	#build dir.json
+	echo "{" > $dirJson
+
+	#copy index file into dir.json
+	printf "$TAB\"index\": " >> $dirJson
+	for idx in $index; do
+		if [[ $idx != 0 ]] ; then
+			printf "\"$idx\", "	>> $dirJson
+		fi
+	done
+	printf "\n$TAB\"required\" : {\n" >> $dirJson
+	#copy required files and directory into dir.json
+	for req in $required; do
+		if [[ $req != 0 ]] ; then
+			if [[ -d $dir"/"$req ]] ; then
+				requiredDir+=${req##*/}" "
+			else
+				requiredFiles+=${req##*/}" "
+
+			fi
+		fi
+	done
+	
+	#pase required files
+	printf "$TABSUB\"files\": [" >> $dirJson
+	for reqF in $requiredFiles; do
+		printf " \"$reqF\"," >> $dirJson
+	done
+	sed -i 's/,$//' $dirJson		#trim last commna sentence
+	printf "], \n" >> $dirJson
+
+	#pase require directories
+	printf "$TABSUB\"directories\" : [" >> $dirJson
+	for reqD in $requiredDir; do
+		printf " \"$reqD\"," >> $dirJson
+	done
+	sed -i 's/,$//' $dirJson		#trim last commna sentence
+	printf "]\n" >> $dirJson
+	printf "$TAB}, " >> $dirJson 	#required's part end
+	
+	#paese other data
+	printf "\n$TAB\"other\" : {\n" >> $dirJson
+	for oth in $other; do	
+			if [[ -d $dir"/"$oth ]] ; then
+				otherDir+=${oth##*/}" "
+			else
+				otherFiles+=${oth##*/}" "
+
+			fi
+	done
+	
+	#pase required files of $other
+	printf "$TABSUB\"files\": [" >> $dirJson
+	for othF in $otherFiles; do
+		printf " \"$othF\"," >> $dirJson
+	done
+	sed -i 's/,$//' $dirJson		#trim last commna sentence
+	printf "], \n" >> $dirJson
+	
+	#pase require directories
+	printf "$TABSUB\"directories\" : [" >> $dirJson
+	for othD in $otherDir; do
+		printf " \"$othD\"," >> $dirJson
+	done
+	sed -i 's/,$//' $dirJson		#trim last commna sentence
+	printf "]\n" >> $dirJson
+
+	printf "$TAB}\n" >> $dirJson 	#other's part end
+	printf "}\n" >> $dirJson
+done

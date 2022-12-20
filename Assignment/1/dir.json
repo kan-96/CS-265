@@ -1,0 +1,11 @@
+{
+   "index": 
+   "required" : {
+      "files": [ "a1-top"], 
+      "directories" : [ "Dir2"]
+   }, 
+   "other" : {
+      "files": [ "parseReadme.awk", ".parse-README.awk.swp", ".a1-top.swp", "a1-top.bash", "README"], 
+      "directories" : []
+   }
+}
