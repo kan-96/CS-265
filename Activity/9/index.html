@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> 2 Implementations of a Stack </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Activity 9 &mdash; 2 Implementations of a Stack </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act9</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/9/</span> .  Copy
+them as needed. </p>
+
+<h2> Discussion </h2>
+
+<p> The idea this week is that we have 2 different implementations that have the same interface.  There are 2 different
+header files, for convenience, but, this could be fixed by moving the definition of <span class='code'>struct
+stack-XXX</span> into the <span class='fn'>.c</span> file, renaming them to have the same name, so that the
+<span class='code'>typedef</span> statement is the same. </p>
+
+<p> <b>Data Hiding</b>:  Providing sufficient behavior (functions) so that the client needn't be aware of the underlying
+representation. </p>
+
+<p> We should be able to swap out the implementation w/out affecting the client (assuming the client coded to the
+interface, and didn't put his hands directly on data).  If this is so, then, development gets easier, testing is
+simpler, finding and fixing bugs gets easier.  It is easier to extend the program, down the road. </p>
+
+<p> Note, an array-based stack needs to maintain 3 fields: </p>
+
+<div class='code'>
+<pre>struct stack_arr
+{
+   ELEM arr[100] ;
+   int size ;            // # number of elements (size of stack)
+   int cap ;   // capacity
+} ;</pre>
+</div>
+
+<p> (If the array size is known at compile time, perhaps the <span class='code'>cap</span> field isn't necessary, but,
+you're going to switch this to heap-based arrays in lab, so, we'll leave it there.) </p>
+
+<p> The list-based stack is just a single field, a pointer to the beginning of the list; </p>
+
+<div class='code'>
+<pre>struct stack_ll
+{
+   sNode* head ;
+} ;</pre>
+</div>
+
+<p> Also note the <span class='fn'>makefile</span>, can be used to build either stack. </p>
+
+<h2> Instructions </h2>
+
+<p> Look at the stacks, think about the implementation. </p>
+
+<p> Note, the client is passing pointers around everywhere. </p>
+
+<script><!--
+question( "What might we do if the client doesn't want to know about pointers?" )
+//--></script>
+
+<p> Look at the <span class='code'>fprintf</span> statements in the <span class='code'>main</span> function.  Note, the
+client must be aware of <span class='code'>ELEM</span>'s type, in order to print it. </p>
+
+<script><!--
+q = "What can we do so that the client can print an <span class='code'>ELEM</span> "
+q += "without being aware of its actual type?"
+question( q )
+//--></script>
+
+<p> Finish the list-based stack.  You need only modify <span class='fn'>stack-ll.c</span>.  First, decide how you know
+the list is empty, define the <span class='code'>isEmpty</span> function.  There are a couple strategies, and all of the
+other functions depend on knowing what an empty stack is, so, this is a good place to start. </p>
+
+<p> Next, do <span class='code'>stackInit</span>.  A new stack had better be empty, so, now get the init part right.
+</p>
+
+<p> Now you can do the other 3 operations.  One at a time.  Test as you go. </p>
+
+<script><!--
+question( "Submit <span class='fn'>stack-ll.c</span> file." )
+//--></script>
+
+
+</body>
+</html>
