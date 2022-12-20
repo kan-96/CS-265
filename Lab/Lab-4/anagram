@@ -1,0 +1,14 @@
+#!/bin/bash
+#anagram - find the 8 largest anagram classes in the system dictionary
+#Khoa Nguyen
+#10/16/2022
+
+if [[ ! -f "sign" ]] ; then
+	gcc -osign sign.c
+fi
+
+#./sign < test.in |sort | ./squash > out
+./sign < /usr/share/dict/words |sort | ./squash > out
+./spaceCount < out | sort -rn | head -n8
+
+

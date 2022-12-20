@@ -1,0 +1,6 @@
+#!/bin/bash
+#squash: to called squash.awk
+#10/15/2022
+#Khoa NGuyen
+
+awk -f squash.awk

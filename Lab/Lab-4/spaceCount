@@ -1,0 +1,4 @@
+#!/usr/bin/awk -f
+#spaceCount - count number of space-seperated words on a line
+
+{ print NF " " $0}
