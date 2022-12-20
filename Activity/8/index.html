@@ -1,0 +1,107 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> Heap Memory, Structs, Linked Lists </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Activity 8 &mdash; Heap Memory, Structs, Linked Lists </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act8</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/8/</span> .  Copy
+them as needed. </p>
+
+<h2> Discussion </h2>
+
+<p> We can do <span class='code'>printList</span> and <span class='code'>freeList</span> together. </p>
+
+
+<h2> Instructions </h2>
+
+<p> Copy over <span class='fn'>act8.h</span>, <span class='fn'>act8.c</span>, and <span class='fn'>start.c</span> .
+Note, <span class='fn'>start.c</span> is a test driver (contains a <span class='code'>main</span> function).  You can
+have many of these (but only compile in one at a time). </p>
+
+<p> Also copy <span class='fn'>Makefile</span>.  Take a look.  It'll help. </p>
+
+<p> Implement the functions, below, here, in these files, to test and develop.  Note, I've provided a function that
+takes an array of <span class='code'>elem_t</span>s, makes a list out of the sequence. </p>
+
+<p> Write a function that takes a list, counts the number of nodes, and returns it. </p>
+
+	<div class='code'>
+	size_t size( sNode* ) ;
+	</div>
+
+	<script><!--
+	question( "Place the <tt>size</tt> function in the activity sheet (remember :r )" )
+	//--></script>
+
+<p> Write a function that takes a list of <span class='code'>elem_t</span>s and an <span class='code'>elem_t</span>, t,
+counts the number of occurrences of the target <span class='code'>elem_t</span>, returns this value. </p>
+
+	<div class='code'>
+	size_t count( sNode*, elem_t t ) ;
+	</div>
+
+	<p> Test it.  Get it right.  Maybe implement the list print function, from the notes. </p>
+
+	<script><!--
+	question( "Place the <tt>count</tt> function in the activity sheet (remember :r )" )
+	//--></script>
+
+<p> Write a function that takes a list of <span class='code'>elem_t</span>s and an <span class='code'>elem_t</span>,
+removes the first node that contains the <span class='code'>elem_t</span>.  Return a pointer to the beginning of the
+list.  No memory leaks. </p>
+
+	<div class='code'>
+	sNode* remove_first( sNode *, elem_t ) ;
+	</div>
+
+	<p> Test it.  Get it right.  Maybe implement the list print function, from the notes. </p>
+
+	<script><!--
+	question( "Place the <tt>remove_first</tt> function in the activity sheet (remember :r )" )
+	//--></script>
+
+<p> Write a function that takes a list of <span class='code'>elem_t</span>s and an <span class='code'>elem_t</span>,
+removes <em>every</em> node that contains the <span class='code'>elem_t</span>.  Return a pointer to the beginning of
+the list.  No memory leaks. </p>
+
+	<div class='code'>
+	sNode* remove_all( sNode *, elem_t ) ;
+	</div>
+
+	<p> Test it.  Get it right. </p>
+
+	<script><!--
+	question( "Place the <tt>remove_all</tt> function in the activity sheet (remember :r )" )
+	//--></script>
+
+
+
+</body>
+</html>

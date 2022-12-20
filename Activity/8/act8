@@ -1,0 +1,21 @@
+Activity 8 - kn574
+Q1:
+size_t size (List p) {
+   size_t cnt =0;
+   while (p != NULL) {
+      cnt++;
+      p =p->next;
+   }
+   return cnt;
+}
+Q2:
+size_t count (List p, elem_t t)  {
+   size_t cnt =0;
+   while(p != NULL)  {
+      if (p->data == t)
+         cnt++;
+      p = p->next;
+   }
+   return cnt;
+}
+
