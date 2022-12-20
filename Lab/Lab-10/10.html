@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Language" content="en-us">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<meta http-equiv="Expires" content="no-expire">
+	<meta name="Author" content="Vera Zaychik & Kurt Schmidt">
+	<meta name="Publisher" content="Drexel University">
+	<meta name="Copyright" content="">
+	<meta name="Keywords" content="Programming Techniques Unix">
+	<meta name="Description"
+		content="Lab for CS265 - Adv. Programming Techniques">
+	<meta name="Pagetype" content="Lab">
+	<meta name="Audience" content="All">
+	<link rel='shortcut icon' type='image/gif'
+		href='../../images/drexel.gif'></link>
+	<script language="JavaScript" src="../courseInfo.js"></script>
+	<script language="JavaScript" src="../../Scripts/courseFormat.js"></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}});
+	</script>
+	<title> Lab &ndash; Memory Checker, Timing, Profiling </title>
+	<link href="labs.css" rel="stylesheet" type="text/css">
+</head>
+
+<body text="#330099" link="#000066" vlink="#000066" alink="#ff0000"
+	background="../../images/blueTexture.jpeg">
+
+<h1> Lab &ndash; Memory Checker, Timing, Profiling </h1>
+
+<p> If this lab has multiple sections, for numbering purposes on your labsheet denote answers from part 1 as
+1.1, 1.2, etc., and answers from part 2 as 2.1, 2.2, &hellip; </p>
+
+<p> For questions that require an answer, fill in a text file called <tt><b>lab10</b></tt> and submit it along with any
+other requested files. </p>
+
+<p> Questions will be denoted with a <span class='question'>Q</span>. </p>
+
+<ul>
+	<li> Make some appropriate subdirectory for this lab and go there </li>
+	<li> Needed files are in <span class='fn'>~kschmidt/public_html/CS265/Labs/Performance</span> to your lab directory
+		<ul>
+			<li> <b>Note</b>, you can use input files right from my directory, rather than copying them over, chewing up your
+				quota </li>
+		</ul>
+	</li>
+</ul>
+
+<h3> Resources </h3>
+
+<ul>
+	<li> <a target='265res' href=
+		'http://www.cs.drexel.edu/~kschmidt/Lectures/Complexity/big-o.pdf'>
+		big-o.pdf</a> and
+		<a target='265res' href=
+		'http://www.cs.drexel.edu/~kschmidt/Lectures/Complexity/big-o.ppt'>
+		big-o.ppt</a> - a quick lecture on Big-O (a upper bound, not necessarily
+		tight) </li>
+	<li> <a target='265res' href=
+		'http://www.cs.drexel.edu/~kschmidt/Lectures/Complexity/recurrenceRelations-substitution.pdf'>
+		recurrenceRelations-substitution.pdf</a> and
+		<a target='265res' href=
+		'http://www.cs.drexel.edu/~kschmidt/Lectures/Complexity/recurrenceRelations-substitution.ppt'>
+		recurrenceRelations-substitution.ppt</a> - solving recurrence relations </li>
+	<li> <a target='265res' href=
+		'http://www.cs.drexel.edu/~kschmidt/Lectures/Complexity/findingTheta.html'>
+		findingTheta.html</a> - an example of dividing T(n) by f(n) to discover
+		f(n) (using Maple) </li>
+</ul>
+
+<h2> Using the <span class='cmd'>time</span> utility </h2>
+
+<p> We're going to use <span class='cmd'>time</span> to gather runtime data about our
+quicksort, on strings. </p>
+
+<p> We will sort inputs of 10,000, 20,000, ... , 100,000 words, and chart our
+results. </p>
+
+
+<ul>
+	<li> Compile your sort:
+		<div class='cli'> gcc sort1.c quicksort.c -o sort1 </div>
+	</li>
+
+	<li> Find (or create) input files, <span class='fn'>ins.<i>n</i></span>, where <i>n</i> is each value 10,000, 20,000,
+		etc.  </li>
+
+	<li> For <i>each</i> input file, <span class='fn'>ins.<i>n</i></span>, get the time
+		to execute:
+		<div class='cli'>time ./sort1 &lt; <i>file</i> &gt; /dev/null</div>
+
+		<p> I would use sum of the reported <tt><b>user</b></tt> and <tt><b>sys</b></tt> times. </p>
+	 </li>
+</ul>
+
+<script><!--
+	question( "Supply your table (just the tabular data, no graphs)." )
+	//--></script>
+
+
+<hr width='80%' />
+
+<h3> C's <span class='cmd'>clock</span> Command </h3>
+
+<p> C has a <span class='cmd'>clock</span> command in its library.  Other languages have
+similar ideas.  See <span class='fn'>sortr.c</span> for an example. </p>
+
+<p> It gives us a little better granularity, about what we're timing (we can skip overhead, etc.).  Essentially, there
+is a clock that starts at 0 when your program starts, and should only tick while your program is executing (as opposed
+to being sliced out).  Each call to <span class='code'>clock()</span> just grabs that time.  So, you grab a start and end time, take the
+difference. </p>
+
+<p> <span class='code'>clock()</span> returns the # of tics, which is system-dependent, both the value and the
+granularity.  Dividing by <span class='code'>CLOCKS_PER_SEC</span> will give you the time, in seconds.  But, for
+graphing/evalution purposes, tics is fine.  Don't divide away significant digits. </p>
+
+
+<h2> Using a bit of the <span class='cmd'>gprof</span> utility</h2>
+
+<p> For another approach at the same problem, we're going to count the # of
+swaps performed, rather than measure raw time. </p>
+
+<p> We'll still be working w/the same set of inputs: 10,000, 20,000, ... ,
+100,000 words, and graph our results. </p>
+
+<p> 
+<ul>
+	<li> Compile your sort for <span class='cmd'>gprof</span> to use:
+		<div class='code'> gcc -p sort1.c quicksort.c -o sort1 </div>
+	</li>
+	<li> For <i>each</i> input file, <span class='fn'>ins.<i>n</i></span>, get the number of swaps:
+		<ul>
+			<li> Run the program: </li>
+				<div class='code'>sort1 &lt; <i>file</i> &gt; /dev/null</div>
+			<li> Notice the file in your directory, <span class='fn'>gmon.out</span> </li>
+			<li> Run <span class='cmd'>gprof</span> on this data: </li>
+				<div class='code'>gprof sort1 gmon.out</div>
+			<li> The report is in a file called <span class='fn'>gprof.out</span>.  There is a description of the data in the
+				report </li>
+			<li> Find the # of times <span class='code'>swap()</span> was called </li>
+		</ul>
+	</li>
+	<li> Play the same game as above.  Using <span class='cmd'>gprof</span>, provide a table, the # of swaps, as a
+		function of the input size. </li>
+</ul>
+
+<script><!--
+	question( "Supply your table (just the tabular data, no graphs)." )
+	//--></script>
+
+
+<hr width='80%' />
+
+</body>
+
+</html>
