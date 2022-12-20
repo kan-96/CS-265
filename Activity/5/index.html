@@ -1,0 +1,238 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> First C Programs </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Activity 5 &mdash; First C Programs </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act5</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/5/</span> .  Copy
+them as needed. </p>
+
+<h2> Instructions </h2>
+
+<h3> Setup </h3>
+
+<p> Remember, the C standard library is documented in section 3 of the *nix manpages.  Try the following: </p>
+
+<div class='cli'>
+<pre> man -s3 puts </pre>
+</div>
+
+<div class='cli'>
+<pre> man -s3 printf </pre>
+</div>
+
+<p> Note the <span class='code'>PRINTF(3)</span> in the top corners.  Recall, also, there's a <span
+class='code'>printf</span> utility for use on the command-line: </p>
+
+<div class='cli'>
+<pre> man printf </pre>
+</div>
+
+<p> Note the differences in the synopses.  Importantly, the page for the C function has an  <span
+class='code'>#include</span> statement, telling you in which header file this function is declared, so you can use it,
+too. </p>
+
+<div class='cli'>
+<pre> man atoi </pre>
+</div>
+
+<h3> Basic Output </h3>
+
+<p> Refer to this week's lecture notes on I/O to help answer these questions. </p>
+
+<p> Write a C program, <span class='fn'>hello.c</span>, that uses <span class='code'>puts</span> to print a message.
+Recall, to compile and run this program: </p>
+
+<div class='cli'>
+<pre> $ gcc hello.c
+ $ ./a.out
+</pre>
+</div>
+
+<h3> Formatted Output with <span class='code'>printf</span> </h3>
+
+<p> Write a C program, <span class='fn'>hello2.c</span>, that uses <span class='code'>printf</span> to personalise the
+message by including the client's username.  Print the following message (assuming the username is <span
+class='code'>abc123</span>): </p>
+
+<div class='output'>
+<pre> Hello, there, abc123! </pre>
+</div>
+
+<p> Use <span class='code'>getenv</span> in <span class='code'>stdlib.h</span> to get <span class='code'>USER</span>
+from the environment: </p>
+
+<div class='code'>
+<pre> char *user = NULL ;
+ user = getenv( "USER" ) ;
+</div>
+
+<script><!--
+question( "Submit this source file." )
+//--></script>
+
+<h3> Extracting an Integer From a String </h3>
+
+<p> Note the <span class='code'>COLUMNS</span> parameter in the environment: <?p>
+
+	<div class='cli'>
+		<pre> echo $COLUMNS </pre>
+	</div>
+
+<p> We can get (and set) environment variables from w/in a C program: </p>
+
+<div class='code'>
+<pre> char *t = NULL ;
+ t = getenv( "COLUMNS" ) ;</pre>
+</div>
+
+<p> Try this in a program, and just print the string out.  Didn't get the output you expected?  Why wouldn't <span
+class='code'>COLUMNS</span> be defined in the environment your program runs in? <p>
+
+<p> Remember, only parameters <em>marked for <span class='code'>export</span></em> are copied into the subshell.  So,
+export <span class='code'>COLUMNS</span>, then try running your program again. </p>
+
+<p> Now, to convert that to an integer we can use the C library <span class='code'>atoi</span> . </p>
+
+<div class='code'>
+<pre> int cols ;
+ cols = atoi( t ) ;</pre>
+</div>
+
+<p> Write a C program, <span class='fn'>hello3.c</span>, that prints the number of columns in the current session:
+</p>
+
+<div class='output'>
+<pre> Hello, there, abc123!  This terminal is 120 columns wide. </pre> 
+</div>
+
+<script><!--
+question( "Submit this source file." )
+//--></script>
+
+<p> Consider the following partial C program: </p>
+
+<div class='code'>
+<pre> int main()
+ {
+   char name[31] ;  // len(name) &le; 30
+   int num_masts ;
+   double loa ; // in feet
+
+   // read name, num_masts, loa
+
+   printf( ...  // output statement here
+
+   return 0 ;
+} </pre>
+</div>
+
+<p> Write a single <span class='code'>printf</span> statement that prints something like this (given the data in the
+variables): </p>
+
+<div class='output'>
+<pre> Bora has 2 masts, and an overall length of 43 ft. </pre> 
+</div>
+
+<script><!--
+question( "Write the print statement in your answer sheet" )
+//--></script>
+
+<h3> Reading Input </h3>
+
+<p> If you want to read the entire line, you use <span class='code'>getline</span> (or <span class='code'>fputs</span>:
+</p>
+
+<div class='code'>
+<pre> int main()
+ {
+   char *buff = NULL ;
+   size_t len = 0 ;
+   char name[41] ;
+
+   puts( "Please enter your name =&gt; " ) ;
+   getline( &amp;buff, &amp;len, stdin ) ;
+
+   strncpy( name, buff, 40 ) ;
+   name[40] = '\0' ;   // Just in case strncpy didn't find '\0'
+
+   printf( "Hello, %s!\n", name ) ;
+
+   free( buff ) ;
+   return 0 ;
+} </pre>
+</div>
+
+<script><!--
+question( "What is unexpected about the output from the first print statement?" )
+//--></script>
+
+<p> The <span class='code'>getline</span> extracted the newline (placed there when the user hit [Enter]) from the
+ stream, and stored it in the buffer.  Just overwritie it w/the null-terminator: </p>
+
+<div class='code'>
+<pre> 
+   buff[ strlen(buff)-1 ] = '\0' ; </pre>
+</div>
+
+<p> If you need to format the input, say, over tokens, or, convert to other types, you can read the entire line into
+ memory, then parse the line with <span class='code'>sscanf</span> .  This is safer than parsing the input directly. </p>
+
+<div class='code'>
+<pre> int main()
+ {
+   char *buff = NULL ;
+   size_t len = 0 ;
+   char first[21] ;
+   char last[31] ;
+
+   puts( "Please enter your name =&gt; " ) ;
+   getline( &amp;buff, &amp;len, stdin ) ;
+
+   sscanf( buff, "%20s %30s", first, last ) ;
+
+   free( buff ) ;
+   return 0 ;
+} </pre>
+</div>
+
+<p> Write a C program, <span class='fn'>hello4.c</span>, that prompts the user for a float, stores it as a <span
+ class='code'>double</span>, and prints it back out. </p>
+
+<script><!--
+question( "Submit this program." )
+//--></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+Khoa Nguyen - kn 574
+Mustafa Teber - mst89
+Yahmin Haj ykh23
+
+Q3: printf("%s has %d masts, and an overall length of %f ft.\n",name, num_masts, loa);
+Q4: the unexpected outout is it printed a newline right after the name and before "!".
+
