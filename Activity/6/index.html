@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> Nested Loops </title>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML' async></script>
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']], processEscapes: true}});
+	</script>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<h1> Activity 6 &mdash; Branches, Loops </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act6</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/6/</span> .  Copy
+them as needed. </p>
+
+<h2> Discussion </h2>
+
+<p> These are counterexamples.  They can be done better.  Discuss with your instructor. </p>
+
+<ol type='i'>
+
+	<li>
+<div class='code'>
+<pre>if( x &gt;= 32 )
+   ++cnt ;
+else if( x &lt; 32 )
+   --chocolate ;
+</pre>
+</div>
+	</li>
+
+	<li>
+<div class='code'>
+<pre>if( age &lt; 18 )
+   bMinor = true ;
+else 
+   bMinor = false ;
+</pre>
+</div>
+	</li>
+
+	<li>
+<div class='code'>
+<pre>if( age &gt;= 18 )
+   bMinor = false ;
+else 
+   bMinor = true ;
+</pre>
+</div>
+	</li>
+
+	<li>
+<div class='code'>
+<pre>if( age &gt;= 13 )
+   if( age &lt;= 20 )
+      bTeen = true ;
+   else
+      bTeen = false ;
+else 
+   bTeen = false ;
+</pre>
+</div>
+	</li>
+
+</ol>
+
+<h2> Instructions </h2>
+
+<h3> Setup </h3>
+
+<p> For questions 1-4, copy down <span class='fn'>triangles.c</span> from the Activity directory.  It currently reads
+the first command-line argument as an integer, stores it in <span class='code'>n</span>.  There are functions for you to
+fill in, described below.
+
+<p> For each of the functions, the only print statements you are allowed are: </p>
+
+<div class='code'>
+	<ul>
+		<li> fputs( "*", stdout ) </li>
+		<li> fputs( " ", stdout )  /* space */ </li>
+		<li> fputs( "\n", stdout ) </li>
+	</ul>
+</div>
+
+<p> Implement the <span class='code'>ll</span> function, which takes a <span class='code'>size_t</span> from the user,
+<var>n</var>, and creates a right triangle with legs of length <var>n</var> , as follows (example for <var>n</var>=4) :
+</p>
+
+<div class='output'>
+<pre>*
+**
+***
+****</pre>
+</div>
+
+<script><!--
+	q = "Implement the <span class='code'>ll</span> function in <span class='fn'>triangles.c</span>."
+	q += "  Make sure it compiles, and is submitted with your activity sheet"
+	question( q )
+//--></script>
+
+<hr width='80%' />
+
+<p> Implement the <span class='code'>ul</span> function, which takes a <span class='code'>size_t</span> from the user,
+<var>n</var>, and creates a right triangle with legs of length <var>n</var> , as follows (example for <var>n</var>=4) :
+</p>
+
+<div class='output'>
+<pre>****
+***
+**
+*</pre>
+</div>
+
+<script><!--
+	q = "Implement the <span class='code'>ul</span> function in <span class='fn'>triangles.c</span>."
+	q += "  Make sure it compiles, and is submitted with your activity sheet"
+	question( q )
+//--></script>
+
+<hr width='80%' />
+
+<p> Implement the <span class='code'>lr</span> function, which takes a <span class='code'>size_t</span> from the user,
+<var>n</var>, and creates a right triangle with legs of length <var>n</var> , as follows (example for <var>n</var>=4) :
+</p>
+
+<div class='output'>
+<pre>   *
+  **
+ ***
+****</pre>
+</div>
+
+<script><!--
+	q = "Implement the <span class='code'>lr</span> function in <span class='fn'>triangles.c</span>."
+	q += "  Make sure it compiles, and is submitted with your activity sheet"
+	question( q )
+//--></script>
+
+<hr width='80%' />
+
+<p> Implement the <span class='code'>ur</span> function, which takes a <span class='code'>size_t</span> from the user,
+<var>n</var>, and creates a right triangle with legs of length <var>n</var> , as follows (example for <var>n</var>=4) :
+</p>
+
+<div class='output'>
+<pre>**** 
+ ***
+  **
+   *</pre>
+</div>
+
+<script><!--
+	q = "Implement the <span class='code'>ur</span> function in <span class='fn'>triangles.c</span>."
+	q += "  Make sure it compiles, and is submitted with your activity sheet"
+	question( q )
+//--></script>
+
+<hr width='80%' />
+
+<p> Write a program which reads floats, one per line, stores them in an array.  After input, compute and print the mean
+and standard deviation of the collection.  You may assume that there will be no more than 100 inputs. </p>
+
+<p> Call your program <span class='fn'>sd.c</span>. </p>
+
+<p> See the example <span class='fn'>readlines.c</span>.  The getline/loop reads until EOF, or a blank line (just a
+newline) is read.  You'll also need <span class='code'>sscanf</span> . </p>
+
+<p> Remember, the standard deviation is the square root of the average of the squares of the differences between each
+value and the mean.  Given a member of the population, $x$, and the size of the population, $N$: </p>
+
+$$
+	\sigma_N = \sqrt{\frac{1}{N}\sum_{i=1}^N\left(x_i - \bar{x}\right)^2}
+$$
+
+<p> (This is an exercise, for practise with several skills, including arrays.  Do not compute the standard deviation
+using the sum of the squares.  Also, for simplicity's sake, we will not concern ourselves with Bessel's correction.)
+</p>
+
+
+<script><!--
+question( "Place the main function of your program in the activity sheet" )
+//--></script>
+
+
+</body>
+</html>
