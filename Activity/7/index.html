@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN'>
+<html>
+<head>
+	<meta http-equiv='Content-Language' content='en-us'>
+	<meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'>
+	<meta http-equiv='Expires' content='no-expire'>
+	<meta name='Author' content='Vera Zaychik & Kurt Schmidt'>
+	<meta name='Publisher' content='Drexel University'>
+	<meta name='Copyright' content=''>
+	<meta name='Keywords' content='C Unix'>
+	<meta name='Description'
+		content='Activity for CS265'>
+	<meta name='Pagetype' content='Lab'>
+	<meta name='Audience' content='All'>
+	<link rel='shortcut icon' type='image/gif'
+		href='../../../images/drexel.gif'></link>
+	<script language='JavaScript' src='../../courseInfo.js'></script>
+	<script language='JavaScript' src='../../../Scripts/courseFormat.js'></script>
+	<title> Pointers, Functions, Strings </title>
+	<link href='../labs.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body text='#330099' link='#000066' vlink='#000066' alink='#ff0000'
+	background='../../../images/orange.png'>
+
+<!--
+<div class='warn'><b>Under Construction</b>  Reload, until this message goes away. </div>
+-->
+
+<h1> Activity 7 &mdash; Pointers, Functions, Strings </h1>
+
+<p> Follow along, questions will be denoted with a <span  class='question'>Q</span>.  Fill in answers in a
+text file called <span class='fn'>act7</span>. </p>
+
+<p> You may work in groups, explain to each other what's happening.  Place the username of each group member at the top of
+the file, one per line, yours first, followed by a blank line. </p>
+
+<p> Files for this activity can be found in <span class='fn'>~kschmidt/public_html/CS265/Activities/7/</span> .  Copy
+them as needed. </p>
+
+<h2> Discussion </h2>
+
+<p> You will implement several of the string functions, for practice.  These functions will be gathered in a custom
+header file, for clients' use. </p>
+
+
+<h2> Instructions </h2>
+
+<h3> Setup </h3>
+
+<p> Copy the following files over from the Activity directory: </p>
+
+<ul>
+	<li><span class='fn'> mystring.c </span> &mdash; the functions you will write </li>
+	<li><span class='fn'> mystring.h </span> &mdash; the prototypes (declarations) of the functions </li>
+	<li><span class='fn'> testdriver.c </span> &mdash; the test driver, the main function where you test your functions
+	</li>
+	<li><span class='fn'> makefile </span></li>
+</ul>
+
+<p> Quick tour of these files w/your instructor. </p>
+
+<h4> Colors </h4>
+
+<p> We can use <term>terminal control codes</term> to print using different colors and effects.  Note the string
+constants in <span class='fn'>testdriver.c</span>.  <span class='code'>NORM</span> turns all formatting off. </p>
+
+<p> I use these in Bash scripts quite often; a test suite seems to be a handy place for them.  You don't need to use
+colors, at all.  They're simply here for your fun.  <span class='code'>\e</span> is the escape character.  In
+other places, like Python, you might use <span class='code'>\u001b</span>, or <span class='code'>\033</span> . </p>
+
+<p> <a target='_blank' href='https://dev.to/ifenna__/adding-colors-to-bash-scripts-48g4'>Here are some other color
+codes</a> </p>
+
+<h4> Compiling </h4>
+
+<p> These can be compiled all at once: </p>
+
+<div class='cli'>
+$ gcc *.c -o stringtest
+</div>
+
+<p> Note, header (<span class='fn'>.h</span>) files are <em>not</em> compiled directly. </p>
+
+<p> For larger programs this is wasteful, and will become prohibitively slow, recompiling all files when only a single
+file has changed.  We can compile each source file, separately, into an <em>object file</em> (<span
+class='fn'>.o</span>).  E.g.: </p>
+
+<div class='cli'>
+$ gcc -c mystring.c
+</div>
+
+<p> Note, you now have a file <span class='fn'>mystring.o</span> in your directory.  It's machine code, but not a full
+program.  We can call the linker to gather all the needed object files into a program: </p>
+
+<div class='cli'>
+$ gcc *.o -o stringtest
+</div>
+
+<p> Finally, run the program: </p>
+
+<div class='cli'>
+$ ./stringtest
+</div>
+
+<p> (Yeah, you need to make that <span class='code'>mystrlen</span> function better.) </p>
+
+
+<h4> The Make Utility </h4>
+
+<p> Remove the executble and the object files from your directory.  Look at the makefile, note that <span
+class='code'>testdriver</span> is the top target.  Type: </p>
+
+<div class='cli'>
+$ make
+</div>
+
+<p>, examine the changes to your directory. </p>
+
+<p> Try making it again, note the result. </p>
+
+<p> Put your name in the header comments in  <span class='fn'>testdriver.c</span>.  Type <span class='code'>make</span> again.
+</p>
+
+<script><!--
+question( "What happened?" )
+//--></script>
+
+<p> Put your name in the header comments in  <span class='fn'>mystring.h</span>.  Type <span class='code'>make</span>
+again.  </p>
+
+<script><!--
+question( "What happened this time?" )
+//--></script>
+
+
+<h3> Group Instructions </h3>
+
+<p> Write the <span class='fn'>mystrlen</span> function, which takes a (mull-terminated) string, returns the length (the
+number of characters before the null-terminator, <span class='code'>'\0'</span>). </p>
+
+<div class='code'>
+size_t mystrlen( const char* s ) ;
+</div>
+
+<p> Implement <span class='code'>mystrlen</span> in <span class='fn'>mystring.c</span>.  Test until it's correct. </p>
+
+<script><!--
+q = "Inline your <span class='code'>mystrlen</span> function in your answer sheet"
+question( q )
+//--></script>
+
+<p> Now we'll consider a function to copy strings: </p>
+
+<div class='code'>
+void mystrcpy( char* t, const char* s ) ;
+</div>
+
+<p> , which copies characters from <span class='code'>s</span> to <span class='code'>t</span> up to and including the
+null-terminator.  Must assume that <span class='code'>t</span> is of sufficient size. </p>
+
+<p> Before you implement the function, add tests to the main function. </p>
+
+<p> Now implement <span class='code'>mystrcpy</span>.  Remember to add the prototype to the header file.  Looking at the
+code you wrote, are there some other tests you might add to your test driver? </p>
+
+<script><!--
+q = "Inline your <span class='code'>mystrcpy</span> in your answer sheet"
+question( q )
+//--></script>
+
+
+<p> Finally, a function to concatenate strings: </p>
+
+<div class='code'>
+void mystrcat( char* t, const char* s ) ;
+</div>
+
+<p> It is much like <span class='code'>strcpy</span>, but it appends the contents of <span class='code'>s</span> onto
+the end of <span class='code'>t</span> .  Assumes that <span class='code'>t</span> is large enough to store both strings
+and the null-terminator. </p>
+
+<p> As before, add tests, then add the function to your library, then, looking at the code, consider more tests you
+might add. </p>
+
+<script><!--
+q = "Inline your <span class='code'>mystrcat</span> in your answer sheet"
+question( q )
+//--></script>
+
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+Khoa Nguyen - kn574
+Q1: we did not compile mystring.c
+	gcc -c testdriver.c
+	gcc mystring.o testdrive.o -o stringtest
+Q2: now we also compiled mystring.c
+	gcc -c mystring.c
+	gcc -c testdriver.c
+   gcc mystring.o testdrive.o -o stringtest
+
+Q3:	
+size_t mystrlen( const char* s )
+{
+   size_t rv = 0 ;
+  	for (int i =0; s[i]!= '\0'; i++)
+		rv++;
+
+   return rv ;
+}
+
+Q4:
+void mystrcpy(char* t, const char* s)  {
+	int i ;
+	for(i =0; s[i] != '\0'; i++)
+		t[i]=s[i];
+	t[i] = '\0';
+}
+Q5:
+void mystrcat( char* t, cons char* s)  {
+	size_t idx = mystrlen(t);
+	for (int i =0 ; s[i] != '\0'; i++,idx++)
+		t[idx] = s[i];
+	t[idx] = '\0';
+}
+
